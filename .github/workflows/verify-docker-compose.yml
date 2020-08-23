@@ -1,11 +1,11 @@
-name: Docker Compose Actions Workflow
+name: VerifyDockerCompose
 on: push
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
+      - name: Show the config
         run: docker-compose config
-      - name: Test
+      - name: Run
         run: docker-compose up -d --build
