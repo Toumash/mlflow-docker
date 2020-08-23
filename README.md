@@ -10,9 +10,8 @@ AWS S3 based [on this article ](https://dev.to/goodidea/how-to-fake-aws-locally-
 1. Configure `.env` file for your choice
 
 2. Create mlflow bucket. You can do it either using AWS CLI or Python Api
+<details><summary>**AWS CLI**</summary>
 
-<summary>AWS CLI
-<details>
 1. [Install AWS cli](https://aws.amazon.com/cli/) **Yes, i know that you dont have an Amazon Web Services Subscription - dont worry! It wont be needed!**
 2. Configure AWS CLI - enter the same credentials from the `.env` file
 
@@ -28,11 +27,10 @@ aws configure
 ```shell
 aws --endpoint-url=http://localhost:9000 s3 mb s3://mlflow
 ```
-</details>
-</summary>
 
-<summary>Python API
-<details>
+</details>
+
+<details><summary>**Python API**</summary>
 
 1. Install Minio
 ```shell
@@ -53,7 +51,6 @@ s3Client.make_bucket('mlflow')
 ```
 
 </details>
-</summary>
 
 
 3. Open up http://localhost:5000/#/ for MlFlow, and http://localhost:9000/minio/mlflow/ for S3 bucket (you artifacts) with credentials from `.env` file
