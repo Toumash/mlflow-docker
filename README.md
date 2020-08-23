@@ -1,4 +1,4 @@
-# MLFlow [![Actions Status](https://github.com/Toumash/mlflow-docker/workflows/VerifyDockerCompose/badge.svg)](https://github.com/Toumash/mlflow-docker/workflows/actions)
+# MLFlow [![Actions Status](https://github.com/Toumash/mlflow-docker/workflows/VerifyDockerCompose/badge.svg)](https://github.com/Toumash/mlflow-docker/actions)
 
 If you want to boot up mlflow project with one-liner - this repo is for you. 
 
