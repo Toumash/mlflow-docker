@@ -1,4 +1,8 @@
-# MFFlow All-In-One PoC
+# MLFlow
+
+If you want to boot up mlflow project with one-liner - this repo is for you. 
+
+The only requirement is docker installed on your system
 
 AWS S3 based [on this article ](https://dev.to/goodidea/how-to-fake-aws-locally-with-localstack-27me)
 
