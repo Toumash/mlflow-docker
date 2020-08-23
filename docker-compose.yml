@@ -41,10 +41,10 @@ services:
           - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
           - AWS_DEFAULT_REGION=${AWS_REGION}
+          - MLFLOW_S3_ENDPOINT_URL=http://localhost:9000
       networks:
           - A
-
-      entrypoint: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root http://localhost:9000/${AWS_BUCKET_NAME}/mlflow/ -h 0.0.0.0
+      entrypoint: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
 networks:
     A:
         driver: bridge

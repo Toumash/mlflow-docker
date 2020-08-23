@@ -18,7 +18,6 @@ aws configure
 4. Create mlflow bucket
 
 ```shell
-npm i
 aws --endpoint-url=http://localhost:9000 s3 mb s3://mlflow
 ```
 
@@ -54,6 +53,7 @@ MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://l
 Optionally you can run 
 ```shell
 MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://localhost:5000 python ./quickstart/mlflow_tracking.py
+
 ```
 
 8. To make the setting permament move the MLFLOW_S3_ENDPOINT_URL and MLFLOW_TRACKING_URI into your .bashrc
