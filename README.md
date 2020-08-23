@@ -68,12 +68,25 @@ export MLFLOW_S3_ENDPOINT_URL=http://localhost:9000
 export MLFLOW_TRACKING_URI=http://localhost:5000
 ```
 
-You can load them from the .env file like so
+You can load them from the .env file. Create a `.env` file inside this repo folder and paste:
+```
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+AWS_REGION=us-east-1
+AWS_BUCKET_NAME=mlflow
+MYSQL_DATABASE=mlflow
+MYSQL_USER=mlflow_user
+MYSQL_PASSWORD=mlflow_password
+MYSQL_ROOT_PASSWORD=toor
+MLFLOW_S3_ENDPOINT_URL=http://localhost:9000
+MLFLOW_TRACKING_URI=http://localhost:5000
+```
+Then run
 ```shell
 source .env
 ```
 
-or add them to the .bashrc file and then run
+or add them as `export X=Y` to the .bashrc file and then run
 
 ```shell
 source ~/.bashrc
