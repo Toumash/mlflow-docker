@@ -145,3 +145,5 @@ Temporary Items
 
 node_modules/
 .localstack/
+dbdata/
+s3/

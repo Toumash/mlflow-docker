@@ -1,15 +1,50 @@
 version: '3.2'
 services:
-  localstack:
+  s3:
     image: minio/minio:latest
     container_name: aws-s3
     ports:
       - 9000:9000
     environment:
       - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-      - MINIO_SECRET_KEY=${AWS_SECRET_KEY}
+      - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
     command: 
       server /date
-    #volumes:
-    #  - './.localstack:/tmp/localstack'
-    #  - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+      - A
+    volumes:
+      - ./s3:/date
+  db:
+      restart: always
+      image: mysql/mysql-server:5.7.28
+      container_name: mlflow_db
+      expose:
+          - "3306"
+      environment:
+          - MYSQL_DATABASE=${MYSQL_DATABASE}
+          - MYSQL_USER=${MYSQL_USER}
+          - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+          - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      volumes:
+          - ./dbdata:/var/lib/mysql
+      networks:
+            - A
+  mlflow:
+      container_name: tracker_mlflow
+      image: tracker_ml
+      build:
+          context: ./mlflow
+          dockerfile: Dockerfile
+      ports:
+          - "5000:5000"
+      environment: 
+          - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+          - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+          - AWS_DEFAULT_REGION=${AWS_REGION}
+      networks:
+          - A
+
+      entrypoint: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root http://localhost:9000/${AWS_BUCKET_NAME}/mlflow/ -h 0.0.0.0
+networks:
+    A:
+        driver: bridge
