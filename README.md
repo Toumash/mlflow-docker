@@ -51,6 +51,11 @@ source ~/.bashrc
 MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
 ```
 
+Optionally you can run 
+```shell
+MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://localhost:5000 python ./quickstart/mlflow_tracking.py
+```
+
 8. To make the setting permament move the MLFLOW_S3_ENDPOINT_URL and MLFLOW_TRACKING_URI into your .bashrc
 
 ```bash

@@ -147,3 +147,4 @@ node_modules/
 .localstack/
 dbdata/
 s3/
+outputs/
