@@ -4,9 +4,7 @@ If you want to boot up mlflow project with one-liner - this repo is for you.
 
 The only requirement is docker installed on your system and we are going to use Bash on linux/windows.
 
-AWS S3 based [on this article ](https://dev.to/goodidea/how-to-fake-aws-locally-with-localstack-27me)
-
-
+## Step by step guide
 1. Configure `.env` file for your choice
 
 2. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**
@@ -52,6 +50,8 @@ s3Client.make_bucket('mlflow')
 
 </details>
 
+
+---
 
 3. Open up http://localhost:5000/#/ for MlFlow, and http://localhost:9000/minio/mlflow/ for S3 bucket (you artifacts) with credentials from `.env` file
 
