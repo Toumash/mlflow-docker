@@ -1,35 +1,15 @@
-version: '3'
+version: '3.2'
 services:
-    sftp:
-        image: atmoz/sftp
-        #volumes:
-        #    - <host-dir>/upload:/home/foo/upload
-        ports:
-            - "2222:22"
-        command: ftpuser:ftppass:::0
-        networks:
-            - A
-    database:
-        container_name: pg_mlflow
-        image: postgres:13
-        environment:
-            - POSTGRES_USER=pgsql
-            - POSTGRES_PASSWORD=pg_password
-            - POSTGRES_DB=mlflow
-        networks:
-            - A
-    tracker:
-        container_name: tracker_mlflow
-        image: tracker_ml
-        build:
-            context: ./mlflow
-            dockerfile: Dockerfile
-        ports:
-            - "5000:5000"
-        networks:
-            - A
-
-        entrypoint: mlflow server --default-artifact-root sftp://ftpuser:ftppass@localhost:2222 -h 0.0.0.0
-networks:
-    A:
-        driver: bridge
+  localstack:
+    image: minio/minio:latest
+    container_name: aws-s3
+    ports:
+      - 9000:9000
+    environment:
+      - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+      - MINIO_SECRET_KEY=${AWS_SECRET_KEY}
+    command: 
+      server /date
+    #volumes:
+    #  - './.localstack:/tmp/localstack'
+    #  - '/var/run/docker.sock:/var/run/docker.sock'

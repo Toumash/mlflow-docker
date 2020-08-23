@@ -93,3 +93,25 @@ sudo docker tag mlflow-basis:latest <username_in_dockerhub>/mlflow-basis:<versio
 sudo docker push <username_in_dockerhub>/mlflow-basis:<version>
 ```
 
+
+AWS S3 based [on this article ](https://dev.to/goodidea/how-to-fake-aws-locally-with-localstack-27me)
+
+
+1. [install aws cli](https://aws.amazon.com/cli/)
+
+
+```
+aws configure
+AWS Access Key ID [****************123]: AKIAIOSFODNN7EXAMPLE
+AWS Secret Access Key [****************123]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+Default region name [us-west-2]: us-east-1
+Default output format [json]: <ENTER>
+```
+
+
+```shell
+npm i
+aws --endpoint-url=http://localhost:9000 s3 mb s3://mlflow
+aws --endpoint-url=http://localhost:9000 s3api put-bucket-acl --bucket mlflow --acl public-read
+```
+
