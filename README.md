@@ -1,117 +1,59 @@
-# mlflow
-
-
-
-* Reference:
-    * official website: https://mlflow.org/
-    * github: https://github.com/mlflow/mlflow
-
-
-
-## Usage
-
-
-
-### Build a Docker image
-
-```sh
-git clone https://github.com/jiankaiwang/mlflow-basis.git
-cd ./mlflow-basis
-sudo docker build -t mlflow-basis:latest .
-```
-
-
-
-### Run a Container
-
-```sh
-# list available docker images
-sudo docker images
-
-# list running containers
-sudo docker ps -a
-
-# run the container
-# container port 5000: mlflow server
-# --rm: remove the container while exiting
-# -i: interactive
-# -t: terminal mode
-# -v: path for host:container
-#
-# example: docker run -it --rm --name mlflow -p 5000:5000 mlflow:latest
-#
-sudo docker run -it --rm --name mlflow -p 5000:5000 -v <local>:<container> mlflow-basis:latest
-
-# stop the container
-sudo docker stop mlflow
-
-# restart the container
-sudo docker restart mlflow
-
-# remove the container
-sudo docker rm mlflow
-```
-
-
-
-### Interact with Container
-
-```sh
-sudo docker exec -it mlflow /bin/bash
-```
-
-
-
-### mlflow Quickstart
-
-* start the training in mlflow example
-
-```sh
-# by default
-# working dir: /app/mlflow/examples
-python ./quickstart/mlflow_tracking.py
-```
-
-* start the mlflow server to monitor the result
-
-```sh
-# host 0.0.0.0: allow all remote access
-mlflow server --file-store ./mlruns --host 0.0.0.0
-```
-
-
-
-### Push to Dockerhub
-
-```sh
-sudo docker login
-
-# set another tag
-sudo docker tag mlflow-basis:latest <username_in_dockerhub>/mlflow-basis:<version>
-
-# push to the dockerhub
-sudo docker push <username_in_dockerhub>/mlflow-basis:<version>
-```
-
+# MFFlow All-In-One PoC
 
 AWS S3 based [on this article ](https://dev.to/goodidea/how-to-fake-aws-locally-with-localstack-27me)
 
 
-1. [install aws cli](https://aws.amazon.com/cli/)
+1. [Install AWS cli](https://aws.amazon.com/cli/) **Yes, i know that you dont have an Amazon Web Services Subscription - dont worry! It wont be needed!**
+2. Configure `.env` file for your choice
+3. Configure AWS CLI - enter the same credentials from the `.env` file
 
-
-```
+```shell
 aws configure
-AWS Access Key ID [****************123]: AKIAIOSFODNN7EXAMPLE
-AWS Secret Access Key [****************123]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-Default region name [us-west-2]: us-east-1
-Default output format [json]: <ENTER>
 ```
+> AWS Access Key ID [****************123]: AKIAIOSFODNN7EXAMPLE  
+> AWS Secret Access Key [****************123]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY  
+> Default region name [us-west-2]: us-east-1  
+> Default output format [json]: <ENTER>  
 
+4. Create mlflow bucket
 
 ```shell
 npm i
 aws --endpoint-url=http://localhost:9000 s3 mb s3://mlflow
-aws --endpoint-url=http://localhost:9000 s3api put-bucket-acl --bucket mlflow --acl public-read
 ```
 
+5. Open up http://localhost:5000/#/ for MlFlow, and http://localhost:9000/minio/mlflow/ for S3 bucket (you artifacts) with credentials from `.env` file
+
+6. Configure S3 Keys.
+
+For running mlflow files you AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables present on the client-side.
+
+```shell
+export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+```
+
+You can load them from the .env file like so
+```shell
+source .env
+```
+
+or add them to the .bashrc file and then run
+
+```shell
+source ~/.bashrc
+```
+
+
+7. Test the pipeline with below command with conda. If you dont have conda installed run with `--no-conda`
+
+```shell
+MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
+```
+
+8. To make the setting permament move the MLFLOW_S3_ENDPOINT_URL and MLFLOW_TRACKING_URI into your .bashrc
+
+```bash
+export MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow
+export MLFLOW_TRACKING_URI=http://localhost:5000
+```
