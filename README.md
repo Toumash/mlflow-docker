@@ -47,18 +47,18 @@ source ~/.bashrc
 7. Test the pipeline with below command with conda. If you dont have conda installed run with `--no-conda`
 
 ```shell
-MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
+MLFLOW_S3_ENDPOINT_URL=http://localhost:9000 MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
 ```
 
 Optionally you can run 
 ```shell
-MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow MLFLOW_TRACKING_URI=http://localhost:5000 python ./quickstart/mlflow_tracking.py
+MLFLOW_S3_ENDPOINT_URL=http://localhost:9000 MLFLOW_TRACKING_URI=http://localhost:5000 python ./quickstart/mlflow_tracking.py
 
 ```
 
 8. To make the setting permament move the MLFLOW_S3_ENDPOINT_URL and MLFLOW_TRACKING_URI into your .bashrc
 
 ```bash
-export MLFLOW_S3_ENDPOINT_URL=http://localhost:9000/mlflow
+export MLFLOW_S3_ENDPOINT_URL=http://localhost:9000
 export MLFLOW_TRACKING_URI=http://localhost:5000
 ```
