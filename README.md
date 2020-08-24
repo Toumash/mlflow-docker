@@ -5,9 +5,9 @@ If you want to boot up mlflow project with one-liner - this repo is for you.
 The only requirement is docker installed on your system and we are going to use Bash on linux/windows.
 
 ## Step by step guide
-1. Configure `.env` file for your choice
+1. Configure `.env` file for your choice. You can put there anything you like, it will be used for our services configuration
 
-2. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**
+2. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**. **You dont need an AWS subscription**
 <details><summary>AWS CLI</summary>
 
 1. [Install AWS cli](https://aws.amazon.com/cli/) **Yes, i know that you dont have an Amazon Web Services Subscription - dont worry! It wont be needed!**
