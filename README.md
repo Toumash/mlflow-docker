@@ -118,8 +118,3 @@ python ./quickstart/mlflow_tracking.py
 ```shell
 MLFLOW_S3_ENDPOINT_URL=http://localhost:9000 MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
 ```
-
-
-# Improvements needed
-
- - [ ] db is very slow to boot up, and tracker_mlflow is crashing due to db being loaded. We need a wait script for the mlflow, to wait for the db to boot up
