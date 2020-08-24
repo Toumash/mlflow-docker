@@ -5,7 +5,7 @@ If you want to boot up mlflow project with one-liner - this repo is for you.
 The only requirement is docker installed on your system and we are going to use Bash on linux/windows.
 
 ## Step by step guide
-1. Configure `.env` file for your choice. You can put there anything you like, it will be used for our services configuration
+1. Configure `.env` file for your choice. You can put there anything you like, it will be used to configure you services
 
 2. Run the Infrastructure by this one line:
 ```shell
