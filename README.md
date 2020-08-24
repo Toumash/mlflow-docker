@@ -56,8 +56,8 @@ from minio.error import ResponseError
 
 s3Client = Minio(
     'localhost:9000',
-    access_key='AKIAIOSFODNN7EXAMPLE', # copy from .env file
-    secret_key='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY', # copy from .env file
+    access_key='<YOUR_AWS_ACCESSS_ID>', # copy from .env file
+    secret_key='<YOUR_AWS_SECRET_ACCESS_KEY>', # copy from .env file
     secure=False
 )
 s3Client.make_bucket('mlflow')
