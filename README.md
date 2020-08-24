@@ -65,18 +65,12 @@ s3Client.make_bucket('mlflow')
 
 5. Configure your client-side
 
-For running mlflow files you AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables present on the client-side.
+For running mlflow files you need various environment variables set on the client side. To generate them user the convienience script `./bashrc_install.sh`, which installs it on your system or `./bashrc_generate.sh`, which just displays the config to copy & paste.
 
-Also, you will need to specify the address of your S3 server (minio) and mlflow tracking server. For that, run following script
+> $ ./bashrc_install.sh   
+> [ OK ] Successfully installed environment variables into your .bashrc!
 
-```shell
-export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
-export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-export MLFLOW_S3_ENDPOINT_URL=http://localhost:9000
-export MLFLOW_TRACKING_URI=http://localhost:5000
-```
-
-or paste it into your .bashrc file and then run `source ~/.bashrc`
+The script installs this variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, MLFLOW_S3_ENDPOINT_URL, MLFLOW_TRACKING_URI. All of them are needed to use mlflow from the client-side.
 
 6. Test the pipeline with below command with conda. If you dont have conda installed run with `--no-conda`
 
