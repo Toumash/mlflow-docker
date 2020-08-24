@@ -7,7 +7,22 @@ The only requirement is docker installed on your system and we are going to use 
 ## Step by step guide
 1. Configure `.env` file for your choice. You can put there anything you like, it will be used for our services configuration
 
-2. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**. **You dont need an AWS subscription**
+2. Run the Infrastructure by this one line:
+```shell
+$ docker-compose up -d
+Creating network "mlflow-basis_A" with driver "bridge"
+Creating mlflow_db      ... done
+Creating tracker_mlflow ... done
+Creating aws-s3         ... done
+```
+Your mlflow_db is slowly getting ready - it migh take up to 1 minute. To be sure, that all of the services are running fine, just run docker-compose up -d until you see all services `up-to-date`
+> $ docker-compose up -d  
+> mlflow_db is up-to-date  
+> aws-s3 is up-to-date  
+> tracker_mlflow is up-to-date  
+
+
+3. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**. **You dont need an AWS subscription**
 <details><summary>AWS CLI</summary>
 
 1. [Install AWS cli](https://aws.amazon.com/cli/) **Yes, i know that you dont have an Amazon Web Services Subscription - dont worry! It wont be needed!**
@@ -53,9 +68,9 @@ s3Client.make_bucket('mlflow')
 
 ---
 
-3. Open up http://localhost:5000/#/ for MlFlow, and http://localhost:9000/minio/mlflow/ for S3 bucket (you artifacts) with credentials from `.env` file
+4. Open up http://localhost:5000/#/ for MlFlow, and http://localhost:9000/minio/mlflow/ for S3 bucket (you artifacts) with credentials from `.env` file
 
-4. Configure your client-side
+5. Configure your client-side
 
 For running mlflow files you AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables present on the client-side.
 
@@ -93,7 +108,7 @@ source ~/.bashrc
 ```
 
 
-7. Test the pipeline with below command with conda. If you dont have conda installed run with `--no-conda`
+6. Test the pipeline with below command with conda. If you dont have conda installed run with `--no-conda`
 
 ```shell
 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
@@ -104,7 +119,7 @@ Optionally you can run
 python ./quickstart/mlflow_tracking.py
 ```
 
-8. (Optional) If you are constantly switching your environment you can use this environment variable syntax
+7. (Optional) If you are constantly switching your environment you can use this environment variable syntax
 
 ```shell
 MLFLOW_S3_ENDPOINT_URL=http://localhost:9000 MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
