@@ -15,12 +15,6 @@ Creating mlflow_db      ... done
 Creating tracker_mlflow ... done
 Creating aws-s3         ... done
 ```
-Your mlflow_db is slowly getting ready - it migh take up to 1 minute. To be sure, that all of the services are running fine, just run docker-compose up -d until you see all services `up-to-date`
-> $ docker-compose up -d  
-> mlflow_db is up-to-date  
-> aws-s3 is up-to-date  
-> tracker_mlflow is up-to-date  
-
 
 3. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**. **You dont need an AWS subscription**
 <details><summary>AWS CLI</summary>
