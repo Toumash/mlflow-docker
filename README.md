@@ -83,7 +83,7 @@ export MLFLOW_S3_ENDPOINT_URL=http://localhost:9000
 export MLFLOW_TRACKING_URI=http://localhost:5000
 ```
 
-You can load them from the .env file. Create a `.env` file inside this repo folder and paste:
+You can load them from the .env file. But i recommend putting it in the .bashrc as below
 ```
 AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
 AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
