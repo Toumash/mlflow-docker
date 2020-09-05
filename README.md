@@ -24,7 +24,14 @@ Creating tracker_mlflow ... done
 Creating aws-s3         ... done
 ```
 
-3. Create mlflow bucket. You can do it **either using AWS CLI or Python Api**. **You dont need an AWS subscription**
+3. Create mlflow bucket. You can use my bundled script.
+
+Just run 
+```shell 
+bash ./run_create_bucket.sh
+```
+
+You can also do it **either using AWS CLI or Python Api**.
 <details><summary>AWS CLI</summary>
 
 1. [Install AWS cli](https://aws.amazon.com/cli/) **Yes, i know that you dont have an Amazon Web Services Subscription - dont worry! It wont be needed!**
