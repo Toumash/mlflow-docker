@@ -2,5 +2,5 @@
 
 set -o allexport; source .env; set +o allexport
 
-pip install Minio
-python ./create_bucket.py
+pip3 install Minio
+python3 ./create_bucket.py
