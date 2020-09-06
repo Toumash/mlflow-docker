@@ -4,6 +4,8 @@ If you want to boot up mlflow project with one-liner - this repo is for you.
 
 The only requirement is docker installed on your system and we are going to use Bash on linux/windows.
 
+[![Youtube tutorial](https://img.youtube.com/vi/ma5lA19IJRA/0.jpg)](https://www.youtube.com/watch?v=ma5lA19IJRA)
+
 # Features
  - Setup by one file (.env)
  - Production-ready docker volumes
