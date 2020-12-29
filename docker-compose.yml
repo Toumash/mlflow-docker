@@ -1,5 +1,28 @@
 version: '3.2'
 services:
+  jupyter:
+    build:
+      context: ./jupyter
+    ports:
+      - "8888:8888"
+    user: root  
+    working_dir: /home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=1 
+      - NB_USER=${USER}
+      - NB_GID=1000
+      - CHOWN_HOME='yes'
+      - CHOWN_HOME_OPTS='-R'
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+      - AWS_BUCKET_NAME=mlflow
+      
+    volumes:
+      - ${PWD}/notebooks:/notebooks
+      - ${PWD}/data:/data
+    networks:
+      - A
   s3:
     image: minio/minio:latest
     container_name: aws-s3
