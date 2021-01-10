@@ -39,7 +39,7 @@ services:
       - ./s3:/date
   db:
       restart: always
-      image: mysql/mysql-server:5.7.28
+      image: mysql/mysql-server:8.0.15
       container_name: mlflow_db
       expose:
           - "3306"
@@ -67,7 +67,8 @@ services:
           - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
       networks:
           - A
-      entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
+      entrypoint: ./run_mlflow.sh
+#      entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
 networks:
     A:
         driver: bridge
