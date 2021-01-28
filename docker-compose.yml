@@ -20,7 +20,6 @@ services:
       
     volumes:
       - ${PWD}/notebooks:/notebooks
-      - ${PWD}/data:/data
     networks:
       - A
   s3:
@@ -65,6 +64,7 @@ services:
           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
           - AWS_DEFAULT_REGION=${AWS_REGION}
           - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+          - AWS_BUCKET_NAME=mlflow
       networks:
           - A
       entrypoint: ./run_mlflow.sh
