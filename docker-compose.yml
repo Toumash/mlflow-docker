@@ -1,7 +1,7 @@
 version: '3.2'
 services:
   s3:
-    image: minio/minio:latest
+    image: minio/minio:RELEASE.2021-06-14T01-29-23Z
     container_name: aws-s3
     ports:
       - 9000:9000
