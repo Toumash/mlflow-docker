@@ -1,10 +1,11 @@
 version: '3.2'
 services:
   s3:
+    restart: always
     image: minio/minio:RELEASE.2021-06-14T01-29-23Z
     container_name: aws-s3
     ports:
-      - 9000:9000
+      - ${MINIO_INTERNAL_PORT}:${MINIO_EXTERNAL_PORT}
     environment:
       - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
       - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -30,21 +31,35 @@ services:
       networks:
             - A
   mlflow:
+      restart: always
       container_name: tracker_mlflow
       image: tracker_ml
       build:
           context: ./mlflow
           dockerfile: Dockerfile
       ports:
-          - "5000:5000"
+          - "${MLFLOW_INTERNAL_PORT}:${MLFLOW_INTERNAL_PORT}"
       environment: 
           - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
           - AWS_DEFAULT_REGION=${AWS_REGION}
-          - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+          - MLFLOW_S3_ENDPOINT_URL=http://s3:${MINIO_INTERNAL_PORT}
       networks:
           - A
-      entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
+      entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0 -p ${MLFLOW_INTERNAL_PORT}
+  nginx:
+      restart: always
+      build:
+          context: ./nginx
+          dockerfile: Dockerfile
+      image: mlflow_nginx
+      container_name: mlflow_nginx
+      ports:
+          - "${MLFLOW_EXTERNAL_PORT}:${MLFLOW_EXTERNAL_PORT}"
+      networks:
+          - A
+      depends_on:
+          - mlflow
 networks:
     A:
         driver: bridge
