@@ -1,19 +1,35 @@
 version: '3.2'
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - /caddy/data:/data
+      - /caddy/config:/config
+    ports:
+      - 80:80
+      - 443:443
+      - 9000:9000
+      - 9001:9001
+    restart: unless-stopped
   s3:
-    image: minio/minio:RELEASE.2021-06-14T01-29-23Z
+    restart: always
+    image: minio/minio:latest
     container_name: aws-s3
     ports:
-      - 9000:9000
+      - 9000
+      - 9001
     environment:
-      - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-      - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
-    command: 
-      server /date
-    networks:
-      - A
+      - MINIO_ROOT_USER=${AWS_ACCESS_KEY_ID}
+      - MINIO_ROOT_PASSWORD=${AWS_SECRET_ACCESS_KEY}
+    command:
+      server /date --console-address ":9001"
     volumes:
       - ./s3:/date
+    networks:
+      - default
+      - proxy-net
   db:
       restart: always
       image: mysql/mysql-server:5.7.28
@@ -28,8 +44,9 @@ services:
       volumes:
           - ./dbdata:/var/lib/mysql
       networks:
-            - A
+          - default
   mlflow:
+      restart: always
       container_name: tracker_mlflow
       image: tracker_ml
       build:
@@ -37,14 +54,16 @@ services:
           dockerfile: Dockerfile
       ports:
           - "5000:5000"
-      environment: 
+      environment:
           - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
           - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
           - AWS_DEFAULT_REGION=${AWS_REGION}
           - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+      entrypoint: mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
       networks:
-          - A
-      entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
+          - proxy-net
+          - default
+
 networks:
-    A:
-        driver: bridge
+  default:
+  proxy-net:

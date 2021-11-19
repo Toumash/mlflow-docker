@@ -1,0 +1,22 @@
+# Minio Console
+s3.localhost:9001 {
+    handle_path /* {
+        reverse_proxy s3:9001
+    }
+}
+
+# Minio API
+s3.localhost:9000 {
+    handle_path /* {
+        reverse_proxy s3:9000
+    }
+}
+
+mlflow.localhost {
+    basicauth /* {
+	    root JDJhJDEwJEVCNmdaNEg2Ti5iejRMYkF3MFZhZ3VtV3E1SzBWZEZ5Q3VWc0tzOEJwZE9TaFlZdEVkZDhX # root hiccup
+    }
+    handle_path /* {
+        reverse_proxy mlflow:5000
+    }
+}
