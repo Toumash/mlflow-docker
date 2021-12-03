@@ -6,12 +6,13 @@ services:
     ports:
       - 9000:9000
     environment:
-      - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-      - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
+      - MINIO_ROOT_USER=${AWS_ACCESS_KEY_ID}
+      - MINIO_ROOT_PASSWORD=${AWS_SECRET_ACCESS_KEY}
     command: 
       server /date
     networks:
-      - A
+      - internal
+      - public
     volumes:
       - ./s3:/date
   db:
@@ -28,7 +29,7 @@ services:
       volumes:
           - ./dbdata:/var/lib/mysql
       networks:
-            - A
+            - internal
   mlflow:
       container_name: tracker_mlflow
       image: tracker_ml
@@ -43,8 +44,10 @@ services:
           - AWS_DEFAULT_REGION=${AWS_REGION}
           - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
       networks:
-          - A
+          - public
+          - internal
       entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
 networks:
-    A:
+    internal:
+    public:
         driver: bridge
