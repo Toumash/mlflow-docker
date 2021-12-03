@@ -2,6 +2,7 @@ version: "3.9"
 services:
   s3:
     image: minio/minio:RELEASE.2021-08-25T00-41-18Z.hotfix.55efceab5
+    restart: unless-stopped
     container_name: aws-s3
     ports:
       - "9000:9000"
@@ -16,8 +17,8 @@ services:
     volumes:
       - ./s3:/date
   db:
-    restart: always
     image: mysql/mysql-server:5.7.28
+    restart: unless-stopped
     container_name: mlflow_db
     expose:
       - "3306"
@@ -33,6 +34,7 @@ services:
   mlflow:
     container_name: tracker_mlflow
     image: tracker_ml
+    restart: unless-stopped
     build:
       context: ./mlflow
       dockerfile: Dockerfile
