@@ -4,14 +4,16 @@ If you want to boot up mlflow project with one-liner - this repo is for you.
 
 The only requirement is docker installed on your system and we are going to use Bash on linux/windows.
 
+**👇Video tutorial how to set it up on Microsoft Azure 👇**
+
 [![Youtube tutorial](https://img.youtube.com/vi/ma5lA19IJRA/0.jpg)](https://www.youtube.com/watch?v=ma5lA19IJRA)
 
 # Features
- - Setup by one file (.env)
- - Production-ready docker volumes
- - Separate artifacts and data containers
- - [Artifacts GUI](https://min.io/)
- - Ready bash scripts to copy and paste for colleagues to use your server!
+ - One file setup (.env)
+ - Minio S3 artifact store with GUI
+ - MySql mlflow storage
+ - Ready to use bash scripts for python development!
+ - Automatically-created s3 buckets
 
 
 ## Simple setup guide
