@@ -6,7 +6,7 @@ The only requirement is docker installed on your system and we are going to use 
 
 **👇Video tutorial how to set it up on Microsoft Azure 👇**
 
-[![Youtube tutorial](https://img.youtube.com/vi/ma5lA19IJRA/0.jpg)](https://www.youtube.com/watch?v=ma5lA19IJRA)
+[![Youtube tutorial](https://user-images.githubusercontent.com/9840635/144674240-f1ede224-410a-4b77-a7b8-450f45cc79ba.png)](https://www.youtube.com/watch?v=ma5lA19IJRA)
 
 # Features
  - One file setup (.env)
