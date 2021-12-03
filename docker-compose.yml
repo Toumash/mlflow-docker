@@ -1,9 +1,8 @@
 version: "3.9"
 services:
   s3:
-    image: minio/minio:RELEASE.2021-08-25T00-41-18Z.hotfix.55efceab5
+    image:  minio/minio:RELEASE.2021-11-24T23-19-33Z
     restart: unless-stopped
-    container_name: aws-s3
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -48,7 +47,19 @@ services:
     networks:
       - public
       - internal
-    entrypoint: ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
+    entrypoint: bash ./wait-for-it.sh db:3306 -t 90 -- mlflow server --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} --default-artifact-root s3://${AWS_BUCKET_NAME}/ -h 0.0.0.0
+  create_s3_buckets:
+    image: minio/mc
+    depends_on:
+      - "s3"
+    entrypoint: >
+      /bin/sh -c "
+      until (/usr/bin/mc alias set minio http://s3:9000 '${AWS_ACCESS_KEY_ID}' '${AWS_SECRET_ACCESS_KEY}') do echo '...waiting...' && sleep 1; done;
+      /usr/bin/mc mb minio/mlflow;
+      exit 0;
+      "
+    networks:
+      - internal
 networks:
   internal:
   public:
