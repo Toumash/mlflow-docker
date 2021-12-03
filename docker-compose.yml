@@ -15,7 +15,7 @@ services:
       - internal
       - public
     volumes:
-      - ./s3:/date
+      - minio_volume:/data
   db:
     image: mysql/mysql-server:5.7.28
     restart: unless-stopped
@@ -28,7 +28,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - ./dbdata:/var/lib/mysql
+      - db_volume:/var/lib/mysql
     networks:
       - internal
   mlflow:
@@ -53,3 +53,6 @@ networks:
   internal:
   public:
     driver: bridge
+volumes:
+  db_volume:
+  minio_volume:
