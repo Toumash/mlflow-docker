@@ -102,3 +102,8 @@ python ./quickstart/mlflow_tracking.py
 ```shell
 MLFLOW_S3_ENDPOINT_URL=http://localhost:9000 MLFLOW_TRACKING_URI=http://localhost:5000 mlflow run git@github.com:databricks/mlflow-example.git -P alpha=0.5
 ```
+ 
+## Licensing
+Copyright (c) 2021 Tomasz Dłuski
+
+Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License by reviewing the file [LICENSE](./LICENSE) in the repository.
