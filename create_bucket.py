@@ -9,20 +9,20 @@ minioUrl =  os.environ.get('MLFLOW_S3_ENDPOINT_URL')
 bucketName =  os.environ.get('AWS_BUCKET_NAME')
 
 if accessID == None:
-    print('[!] AWS_ACCESS_KEY_ID environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print('[!] AWS_ACCESS_KEY_ID environment variable is empty! run \'source .env\' to load it from the .env file')
     exit(1)
 
 if accessSecret == None:
-    print('[!] AWS_SECRET_ACCESS_KEY environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print('[!] AWS_SECRET_ACCESS_KEY environment variable is empty! run \'source .env\' to load it from the .env file')
     exit(1)
 
 if minioUrl == None:
-    print('[!] MLFLOW_S3_ENDPOINT_URL environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print('[!] MLFLOW_S3_ENDPOINT_URL environment variable is empty! run \'source .env\' to load it from the .env file')
     exit(1)
 
     
 if bucketName == None:
-    print('[!] AWS_BUCKET_NAME environemnt variable is empty! run \'source .env\' to load it from the .env file')
+    print('[!] AWS_BUCKET_NAME environment variable is empty! run \'source .env\' to load it from the .env file')
     exit(1)
 
 minioUrlHostWithPort = minioUrl.split('//')[1]
