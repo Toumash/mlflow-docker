@@ -9,7 +9,7 @@
 3. Open up http://localhost:5000 for MlFlow, and http://localhost:9001/ to browse your files in S3 artifact store
 
 
-**👇Video tutorial how to set it up on Microsoft Azure 👇**
+**👇Video tutorial how to set it up + BONUS with Microsoft Azure 👇**
 
 [![Youtube tutorial](https://user-images.githubusercontent.com/9840635/144674240-f1ede224-410a-4b77-a7b8-450f45cc79ba.png)](https://www.youtube.com/watch?v=ma5lA19IJRA)
 
