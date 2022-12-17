@@ -5,13 +5,15 @@
 
 We assume `123.3.2.1` is your server's ip address.
 
+
+We start installing the docker container on `123.3.2.1` with the following commands
 ```bash
 git clone git@github.com:fengwang/mlflow-docker.git
 cd mlflow-docker
 docker-compose up -d
 ```
 
-Copy the output of
+Then we copy the output of
 ```bash
 sh ./bashrc_generate.sh
 ```
@@ -45,7 +47,8 @@ export MLFLOW_S3_ENDPOINT_URL=http://123.3.2.1:9000
 export MLFLOW_TRACKING_URI=http://123.3.2.1:5000
 # END MLFLOW CONFIG
 ```
-append it to your `~/.zshrc` or your `~/.bashrc`, then execute `source ~/.zshrc` or `source ~/.bashrc`.
+
+Append it to your `~/.zshrc` or your `~/.bashrc`, then execute `source ~/.zshrc` or `source ~/.bashrc`.
 
 
 ## Test in the **client side***
