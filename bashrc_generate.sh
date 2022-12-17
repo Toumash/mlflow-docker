@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source .env
+source ./.env
 
 echo "Copy and paste below configuration into your ~/.bashrc file!"
 echo ""
-echo "# MLFLOW CONFIG" 
+echo "# MLFLOW CONFIG"
 echo "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
 echo "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
 echo "export MLFLOW_S3_ENDPOINT_URL=$MLFLOW_S3_ENDPOINT_URL"
