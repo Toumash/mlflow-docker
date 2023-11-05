@@ -5,7 +5,7 @@ import mlflow
 
 if __name__ == "__main__":
     with mlflow.start_run() as run:
-        mlflow.set_tracking_uri('http://localhost:5000')
+        mlflow.set_tracking_uri('http://mlflow:5000')
         print("Running mlflow_tracking.py")
 
         mlflow.log_param("param1", randint(0, 100))
