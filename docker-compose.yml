@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   s3:
-    image: minio/minio:RELEASE.2021-11-24T23-19-33Z
+    image: minio/minio:RELEASE.2023-11-01T18-37-25Z
     restart: unless-stopped
     ports:
       - "9000:9000"
@@ -14,7 +14,7 @@ services:
       - internal
       - public
     volumes:
-      - minio_volume:/data
+      - minio_new_volume:/data
   db:
     image: mysql:8-oracle # -oracle tag supports arm64 architecture!
     restart: unless-stopped
@@ -92,4 +92,4 @@ networks:
     driver: bridge
 volumes:
   db_new_volume:
-  minio_volume:
+  minio_new_volume:
