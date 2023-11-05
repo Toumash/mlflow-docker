@@ -16,7 +16,7 @@ services:
     volumes:
       - minio_volume:/data
   db:
-    image: mysql/mysql-server:5.7.28
+    image: mysql:8-oracle # -oracle tag supports arm64 architecture!
     restart: unless-stopped
     container_name: mlflow_db
     expose:
@@ -27,7 +27,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - db_volume:/var/lib/mysql
+      - db_new_volume:/var/lib/mysql
     networks:
       - internal
   mlflow:
@@ -91,5 +91,5 @@ networks:
   public:
     driver: bridge
 volumes:
-  db_volume:
+  db_new_volume:
   minio_volume:
