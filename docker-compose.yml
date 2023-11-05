@@ -67,6 +67,25 @@ services:
     command: tcp db:3306 -t 90s -i 250ms
     networks:
       - internal
+  run_test_experiment:
+    build:
+      context: ./test_experiment
+      dockerfile: Dockerfile
+    depends_on:
+      - "mlflow"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_REGION}
+      - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    entrypoint: >
+      /bin/sh -c "
+      python3 mlflow_tracking.py;
+      exit 0;
+      "
+    networks:
+      - internal
 networks:
   internal:
   public:
