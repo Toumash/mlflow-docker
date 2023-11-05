@@ -28,7 +28,7 @@
 
 1. Configure your client-side
 
-For running mlflow files you need various environment variables set on the client side. To generate them user the convienience script `./bashrc_install.sh`, which installs it on your system or `./bashrc_generate.sh`, which just displays the config to copy & paste.
+For running mlflow files you need various environment variables set on the client side. To generate them use the convienience script `./bashrc_install.sh`, which installs it on your system or `./bashrc_generate.sh`, which just displays the config to copy & paste.
 
 > $ ./bashrc_install.sh   
 > [ OK ] Successfully installed environment variables into your .bashrc!
