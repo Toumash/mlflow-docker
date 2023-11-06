@@ -71,6 +71,8 @@ services:
     build:
       context: ./test_experiment
       dockerfile: Dockerfile
+      platforms:
+        - "linux/amd64"
     depends_on:
       - "mlflow"
     environment:
