@@ -71,8 +71,7 @@ services:
     build:
       context: ./test_experiment
       dockerfile: Dockerfile
-      platforms:
-        - "linux/amd64"  # once continuumio/miniconda3:latest image work on native aarch64 (arm), remove this line
+      platform: linux/amd64  # once continuumio/miniconda3:latest image work on native aarch64 (arm), remove this line 
     depends_on:
       - "mlflow"
     environment:
